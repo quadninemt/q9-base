@@ -1,0 +1,18 @@
+<!-- wp:group {"tagName":"div","className":"site-footer__inner","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"},"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}}} -->
+<div class="wp-block-group site-footer__inner">
+
+	<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"},"style":{"spacing":{"blockGap":"var:preset|spacing|small"}}} -->
+	<div class="wp-block-group">
+		<!-- wp:site-logo {"width":100,"shouldSyncIcon":true} /-->
+		<!-- wp:site-tagline {"style":{"typography":{"fontSize":"0.875rem"},"color":{"text":"var:preset|color|neutral-dark"}}} /-->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:navigation {"overlayMenu":"never","layout":{"type":"flex","justifyContent":"right","flexWrap":"wrap"},"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}},"fontSize":"small"} /-->
+
+	<!-- wp:paragraph {"align":"right","style":{"typography":{"fontSize":"0.75rem"},"color":{"text":"var:preset|color|neutral-dark"}}} -->
+	<p class="has-text-align-right">© <strong><!-- wp:site-title {"isLink":false,"level":0,"style":{"typography":{"fontWeight":"600"}}} /--></strong> <!-- wp:html --><?php echo date('Y'); ?><!-- /wp:html -->. All rights reserved.</p>
+	<!-- /wp:paragraph -->
+
+</div>
+<!-- /wp:group -->
