@@ -1,0 +1,12 @@
+/*
+Theme Name:  q9-gregale
+Theme URI:   https://github.com/quadninemt/q9-gregale
+Description: QuadNine block theme — standalone FSE, deployed to all QuadNine-managed client sites. All visual differentiation is achieved through brand-guide-tokens.json; no per-client child themes.
+Version:     1.0.0
+Requires at least: 6.9
+Tested up to:      6.9
+Requires PHP:      8.1
+License:     GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: q9-base
+*/
