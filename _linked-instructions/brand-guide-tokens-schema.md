@@ -19,11 +19,24 @@ The `apply-client-tokens` ability must write to this exact path. The theme slug 
 
 ## How the merge works
 
-On every page load, `functions.php` hooks into `wp_theme_json_data_theme` and merges the token file over the base `theme.json`. This means:
+`functions.php` applies tokens via two complementary mechanisms:
 
+**1 — `wp_head` CSS variable injection (front-end, priority 99)**
+On every page load, a `<style id="q9-brand-tokens">` block is output in `<head>` that overrides the `--wp--preset--color--*`, `--wp--preset--font-family--*`, `--wp--preset--spacing--*`, and `--wp--custom--radius--*` CSS custom properties directly from the token file. This is the reliable production path — it requires no cache invalidation and works on WP 7.0+.
+
+**2 — `wp_theme_json_data_theme` filter (block editor / Site Editor)**
+The same token values are merged into the theme JSON data so the Site Editor preview reflects client branding. Due to WP 7.0's persistent object cache (Redis/Memcached), this path is less reliable on the front-end but correct for editor context.
+
+**Cache invalidation (`quadnine_after_apply_client_tokens` hook)**
+Calling `apply-client-tokens` fires this hook, which calls:
+- `WP_Theme_JSON_Resolver::clean_cached_data()` (WP 6.1+)
+- `wp_cache_flush_group('theme_json')`
+- `wp_cache_flush()` (full flush for Redis hosts)
+
+This means:
 - No template files are touched per client
 - No child themes are needed
-- The live site reflects the new tokens immediately after the file is written (the cache-invalidation hook `quadnine_after_apply_client_tokens` clears any stale global styles)
+- The live site reflects new tokens **immediately** — the `wp_head` injection path has no cache dependency
 
 ---
 
@@ -33,7 +46,7 @@ All keys are optional. Omit any key to keep the theme default.
 
 ```json
 {
-  "client": "string — client slug, e.g. acme-co (informational only)",
+  "client_slug": "string — client slug, e.g. acme-co (informational only; written by apply-client-tokens ability)",
 
   "colors": {
     "primary":       "hex — primary brand colour (buttons, links, highlights)",
@@ -91,7 +104,7 @@ All keys are optional. Omit any key to keep the theme default.
 
 ```json
 {
-  "client": "acme-co",
+  "client_slug": "acme-co",
   "colors": {
     "primary":   "#E53E3E",
     "secondary": "#DD6B20"
