@@ -10,3 +10,233 @@ License:     GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: q9-base
 */
+
+/* ==========================================================================
+   Global reset & base
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+img,
+video {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+/* ==========================================================================
+   Focus styles
+   ========================================================================== */
+
+:focus-visible {
+	outline: 2px solid var(--wp--preset--color--primary);
+	outline-offset: 3px;
+	border-radius: 2px;
+}
+
+:focus:not(:focus-visible) {
+	outline: none;
+}
+
+/* ==========================================================================
+   Transitions
+   ========================================================================== */
+
+a {
+	transition: color 0.15s ease;
+}
+
+.wp-element-button,
+.wp-block-button__link {
+	transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+	cursor: pointer;
+}
+
+.wp-element-button:hover,
+.wp-block-button__link:hover {
+	box-shadow: var(--wp--preset--shadow--button);
+	transform: translateY(-1px);
+}
+
+.wp-element-button:active,
+.wp-block-button__link:active {
+	transform: translateY(0);
+}
+
+/* ==========================================================================
+   Site header
+   ========================================================================== */
+
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	background-color: var(--wp--preset--color--background);
+	border-bottom: 1px solid var(--wp--preset--color--neutral-light);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	background-color: rgba(255, 255, 255, 0.92);
+}
+
+.site-header .wp-block-group.site-header__inner {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	padding-left: var(--wp--preset--spacing--medium);
+	padding-right: var(--wp--preset--spacing--medium);
+	max-width: var(--wp--style--global--wide-size);
+	margin-inline: auto;
+}
+
+/* ==========================================================================
+   Site footer
+   ========================================================================== */
+
+.site-footer {
+	background-color: var(--wp--preset--color--neutral-dark);
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.site-footer .wp-block-group.site-footer__inner {
+	padding-top: var(--wp--preset--spacing--large);
+	padding-bottom: var(--wp--preset--spacing--large);
+	padding-left: var(--wp--preset--spacing--medium);
+	padding-right: var(--wp--preset--spacing--medium);
+	max-width: var(--wp--style--global--wide-size);
+	margin-inline: auto;
+}
+
+.site-footer a,
+.site-footer .wp-block-site-title a,
+.site-footer .wp-block-navigation a {
+	color: rgba(255, 255, 255, 0.7);
+	text-decoration: none;
+}
+
+.site-footer a:hover {
+	color: #ffffff;
+}
+
+.site-footer .wp-block-site-tagline {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================================================================
+   Navigation
+   ========================================================================== */
+
+.wp-block-navigation a {
+	text-decoration: none;
+}
+
+.wp-block-navigation a:hover {
+	color: var(--wp--preset--color--primary);
+}
+
+.wp-block-navigation .wp-block-navigation-item.current-menu-item > a {
+	color: var(--wp--preset--color--primary);
+	font-weight: 600;
+}
+
+/* ==========================================================================
+   Typography refinements
+   ========================================================================== */
+
+.wp-block-post-content > * + * {
+	margin-top: var(--wp--preset--spacing--medium);
+}
+
+.wp-block-post-content h2,
+.wp-block-post-content h3,
+.wp-block-post-content h4 {
+	margin-top: var(--wp--preset--spacing--large);
+}
+
+blockquote,
+.wp-block-quote {
+	border-left: 4px solid var(--wp--preset--color--primary);
+	padding-left: var(--wp--preset--spacing--medium);
+	font-style: italic;
+	color: var(--wp--preset--color--neutral-dark);
+}
+
+/* ==========================================================================
+   Post meta
+   ========================================================================== */
+
+.post-meta {
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--neutral-dark);
+}
+
+/* ==========================================================================
+   Separators
+   ========================================================================== */
+
+.wp-block-separator {
+	border: none;
+	border-top: 1px solid var(--wp--preset--color--neutral-light);
+	margin: 0;
+}
+
+/* ==========================================================================
+   Query pagination
+   ========================================================================== */
+
+.wp-block-query-pagination .page-numbers {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 2.25rem;
+	height: 2.25rem;
+	padding: 0 0.5rem;
+	border-radius: var(--wp--custom--radius--button);
+	text-decoration: none;
+	font-weight: 500;
+	font-size: var(--wp--preset--font-size--small);
+	transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.wp-block-query-pagination .page-numbers.current {
+	background-color: var(--wp--preset--color--primary);
+	color: #ffffff;
+}
+
+.wp-block-query-pagination .page-numbers:not(.current):hover {
+	background-color: var(--wp--preset--color--neutral-light);
+}
+
+/* ==========================================================================
+   Gallery captions
+   ========================================================================== */
+
+.wp-block-gallery figcaption {
+	font-size: var(--wp--preset--font-size--small);
+	color: var(--wp--preset--color--neutral-dark);
+	text-align: center;
+	margin-top: 0.5rem;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+	.site-header .wp-block-group.site-header__inner {
+		padding-left: var(--wp--preset--spacing--small);
+		padding-right: var(--wp--preset--spacing--small);
+	}
+}

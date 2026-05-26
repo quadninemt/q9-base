@@ -5,6 +5,25 @@ add_action( 'after_setup_theme', function () {
 	add_theme_support( 'wp-block-styles' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'responsive-embeds' );
+	add_editor_style( 'editor-style.css' );
+} );
+
+add_action( 'wp_enqueue_scripts', function () {
+	wp_enqueue_style(
+		'q9-inter',
+		'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap',
+		[],
+		null
+	);
+} );
+
+add_action( 'enqueue_block_editor_assets', function () {
+	wp_enqueue_style(
+		'q9-inter-editor',
+		'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap',
+		[],
+		null
+	);
 } );
 
 add_action( 'init', function () {

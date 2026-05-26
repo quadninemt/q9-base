@@ -1,0 +1,36 @@
+/* Editor styles — mirrors front-end polish for accurate editing experience */
+
+body {
+	-webkit-font-smoothing: antialiased;
+}
+
+.editor-styles-wrapper {
+	font-family: Inter, system-ui, -apple-system, sans-serif;
+}
+
+.editor-styles-wrapper a {
+	transition: color 0.15s ease;
+}
+
+.editor-styles-wrapper .wp-element-button,
+.editor-styles-wrapper .wp-block-button__link {
+	transition: background-color 0.2s ease, color 0.2s ease;
+	cursor: pointer;
+}
+
+.editor-styles-wrapper blockquote,
+.editor-styles-wrapper .wp-block-quote {
+	border-left: 4px solid var(--wp--preset--color--primary);
+	padding-left: var(--wp--preset--spacing--medium);
+	font-style: italic;
+}
+
+.editor-styles-wrapper .wp-block-separator {
+	border: none;
+	border-top: 1px solid var(--wp--preset--color--neutral-light);
+}
+
+.editor-styles-wrapper img {
+	max-width: 100%;
+	height: auto;
+}
