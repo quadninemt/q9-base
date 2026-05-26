@@ -31,9 +31,81 @@ add_action( 'init', function () {
 } );
 
 // Patterns are auto-registered from /patterns/ via the block-patterns header.
-// functions.php is kept minimal — all tokens live in theme.json.
 
-// Merge brand-guide-tokens.json into the active theme.json at runtime.
+// Inject brand token CSS variables directly into <head>, bypassing theme.json cache.
+// This is the reliable runtime path; wp_theme_json_data_theme handles the block editor.
+add_action( 'wp_head', function () {
+	$tokens_file = get_template_directory() . '/brand-guide-tokens.json';
+	if ( ! file_exists( $tokens_file ) ) {
+		return;
+	}
+	$tokens = json_decode( file_get_contents( $tokens_file ), true );
+	if ( empty( $tokens ) ) {
+		return;
+	}
+
+	$vars = '';
+
+	if ( ! empty( $tokens['colors'] ) ) {
+		$map = [
+			'primary'       => '--wp--preset--color--primary',
+			'secondary'     => '--wp--preset--color--secondary',
+			'accent'        => '--wp--preset--color--accent',
+			'neutral-light' => '--wp--preset--color--neutral-light',
+			'neutral-dark'  => '--wp--preset--color--neutral-dark',
+			'background'    => '--wp--preset--color--background',
+			'text'          => '--wp--preset--color--text',
+		];
+		foreach ( $map as $slug => $prop ) {
+			if ( isset( $tokens['colors'][ $slug ] ) ) {
+				$vars .= $prop . ':' . esc_attr( $tokens['colors'][ $slug ] ) . ';';
+			}
+		}
+	}
+
+	if ( ! empty( $tokens['typography'] ) ) {
+		if ( isset( $tokens['typography']['body-font-family'] ) ) {
+			$vars .= '--wp--preset--font-family--body:' . esc_attr( $tokens['typography']['body-font-family'] ) . ';';
+		}
+		if ( isset( $tokens['typography']['heading-font-family'] ) ) {
+			$vars .= '--wp--preset--font-family--heading:' . esc_attr( $tokens['typography']['heading-font-family'] ) . ';';
+		}
+		if ( isset( $tokens['typography']['line-height-body'] ) ) {
+			$vars .= '--wp--custom--line-height--body:' . esc_attr( $tokens['typography']['line-height-body'] ) . ';';
+		}
+		if ( isset( $tokens['typography']['line-height-heading'] ) ) {
+			$vars .= '--wp--custom--line-height--heading:' . esc_attr( $tokens['typography']['line-height-heading'] ) . ';';
+		}
+	}
+
+	if ( ! empty( $tokens['spacing'] ) ) {
+		$spacing_map = [
+			'small'  => '--wp--preset--spacing--small',
+			'medium' => '--wp--preset--spacing--medium',
+			'large'  => '--wp--preset--spacing--large',
+			'xlarge' => '--wp--preset--spacing--xlarge',
+		];
+		foreach ( $spacing_map as $slug => $prop ) {
+			if ( isset( $tokens['spacing'][ $slug ] ) ) {
+				$vars .= $prop . ':' . esc_attr( $tokens['spacing'][ $slug ] ) . ';';
+			}
+		}
+	}
+
+	if ( ! empty( $tokens['radius'] ) ) {
+		foreach ( [ 'button', 'card', 'input' ] as $key ) {
+			if ( isset( $tokens['radius'][ $key ] ) ) {
+				$vars .= '--wp--custom--radius--' . $key . ':' . esc_attr( $tokens['radius'][ $key ] ) . ';';
+			}
+		}
+	}
+
+	if ( $vars ) {
+		echo '<style id="q9-brand-tokens">:root{' . $vars . '}</style>';
+	}
+}, 99 );
+
+// Also merge into theme.json data for the block editor (Site Editor preview).
 add_filter( 'wp_theme_json_data_theme', function ( WP_Theme_JSON_Data $theme_json ) {
 	$tokens_file = get_template_directory() . '/brand-guide-tokens.json';
 	if ( ! file_exists( $tokens_file ) ) {
@@ -100,6 +172,18 @@ add_filter( 'wp_theme_json_data_theme', function ( WP_Theme_JSON_Data $theme_jso
 
 // Invalidate theme.json caches after apply-client-tokens writes a new token file.
 add_action( 'quadnine_after_apply_client_tokens', function () {
-	delete_transient( 'global_styles' );
-	wp_cache_delete( 'global_styles', 'theme_json' );
+	// WP 6.6+ static property cache on the resolver.
+	if ( method_exists( 'WP_Theme_JSON_Resolver', 'clean_cached_data' ) ) {
+		WP_Theme_JSON_Resolver::clean_cached_data();
+	}
+	// Clear all known theme_json object cache keys (WP 6.x and 7.x key names).
+	foreach ( [ 'global_styles', 'wp_global_styles', 'wp_global_styles_', 'theme_json' ] as $key ) {
+		wp_cache_delete( $key, 'theme_json' );
+		delete_transient( $key );
+	}
+	if ( function_exists( 'wp_cache_flush_group' ) ) {
+		wp_cache_flush_group( 'theme_json' );
+	}
+	// Flush full object cache to handle persistent stores (Redis/Memcached).
+	wp_cache_flush();
 } );
