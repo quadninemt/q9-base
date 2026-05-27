@@ -163,7 +163,7 @@ The theme is ready to use in the Website Builder workflow when:
 
 ## Repository
 
-https://github.com/quadninemt/q9-gregale
+https://github.com/quadninemt/q9-base
 
 Branch strategy: `main` is the deployed branch. Work on feature branches, merge via PR.
 

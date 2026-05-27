@@ -8,22 +8,32 @@ add_action( 'after_setup_theme', function () {
 	add_editor_style( 'editor-style.css' );
 } );
 
+/**
+ * Enqueue Google Fonts — per-client URL from brand-guide-tokens.json, falling back to Inter.
+ *
+ * If the token file contains a `typography.google-fonts-url` value, that URL is loaded (it
+ * must include every weight used by both body and heading fonts, plus &display=swap).
+ * If the field is absent or the token file doesn't exist, Inter (400–800) is loaded as the
+ * theme default.
+ */
+function q9_get_google_fonts_url(): string {
+	$tokens_file = get_template_directory() . '/brand-guide-tokens.json';
+	if ( file_exists( $tokens_file ) ) {
+		$tokens = json_decode( file_get_contents( $tokens_file ), true );
+		$url    = $tokens['typography']['google-fonts-url'] ?? '';
+		if ( $url && str_starts_with( $url, 'https://fonts.googleapis.com/' ) ) {
+			return $url;
+		}
+	}
+	return 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap';
+}
+
 add_action( 'wp_enqueue_scripts', function () {
-	wp_enqueue_style(
-		'q9-inter',
-		'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap',
-		[],
-		null
-	);
+	wp_enqueue_style( 'q9-fonts', q9_get_google_fonts_url(), [], null );
 } );
 
 add_action( 'enqueue_block_editor_assets', function () {
-	wp_enqueue_style(
-		'q9-inter-editor',
-		'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap',
-		[],
-		null
-	);
+	wp_enqueue_style( 'q9-fonts-editor', q9_get_google_fonts_url(), [], null );
 } );
 
 add_action( 'init', function () {

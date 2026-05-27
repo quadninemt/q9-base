@@ -42,7 +42,7 @@ Block templates (`/templates/`) and template parts (`/parts/`) carry the layout.
 
 ## Deployment model
 
-- The theme is built once and lives in this Git repository (https://github.com/quadninemt/q9-gregale)
+- The theme is built once and lives in this Git repository (https://github.com/quadninemt/q9-base)
 - It is deployed to every staging and production site
 - Theme version bumps propagate to all client sites
 - The `quadnine/activate-theme` ability (in q9-abilities-plugin) activates this theme by its slug — it should always activate the QuadNine block theme, not a per-client slug

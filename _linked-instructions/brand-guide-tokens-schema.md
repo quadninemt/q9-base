@@ -62,7 +62,8 @@ All keys are optional. Omit any key to keep the theme default.
     "body-font-family":    "CSS font-family stack for body text",
     "heading-font-family": "CSS font-family stack for headings",
     "line-height-body":    "number string, e.g. '1.6'",
-    "line-height-heading": "number string, e.g. '1.2'"
+    "line-height-heading": "number string, e.g. '1.2'",
+    "google-fonts-url":    "Full Google Fonts CSS URL — must begin with https://fonts.googleapis.com/ and include all weights for both body and heading fonts, plus &display=swap. If present, functions.php enqueues this URL instead of the default Inter. Omit to keep Inter."
   },
 
   "spacing": {
@@ -94,6 +95,7 @@ All keys are optional. Omit any key to keep the theme default.
 | `client` | Alphanumeric + hyphens, lowercase |
 | Color values | Must be valid hex (`#rrggbb` or `#rgb`) |
 | Font families | Free-form string — no validation required |
+| `google-fonts-url` | Must begin with `https://fonts.googleapis.com/` if present |
 | Spacing values | Must include a CSS unit (`rem`, `px`, `em`, `%`) |
 | Radius values | Must include a CSS unit, or be `'0'` |
 | Shadow values | Free-form string or `'none'` |

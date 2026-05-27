@@ -3,7 +3,7 @@
 This project contains the standalone QuadNine block theme (FSE) — **q9-gregale** — deployed to every QuadNine-managed client site.
 
 ## Repository
-https://github.com/quadninemt/q9-gregale
+https://github.com/quadninemt/q9-base
 
 ---
 
