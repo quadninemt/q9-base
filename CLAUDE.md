@@ -13,6 +13,22 @@ This project is part of the QuadNine Website Builder system. The Website Builder
 
 **At the start of every session:** check whether `_linked-instructions/` exists in this directory. If it does, read every `.md` file in it before doing anything else. Treat those files as amendments to this CLAUDE.md — they take precedence where they conflict with anything here.
 
+**After reading linked instructions, verify the code matches them.** Check these specific things and flag any mismatch to the user before proceeding with other work:
+
+| What to check | Where to look | What to verify |
+|---|---|---|
+| Repo URL | `style.css` Theme URI, `CLAUDE.md`, `BRIEF.md`, `README.md`, `_linked-instructions/*.md` | All must match the current GitHub repo URL |
+| Token merge — `wp_head` injection | `functions.php` | Hook exists at priority 99; injects `--wp--preset--color--*`, `--wp--preset--font-family--*`, `--wp--preset--spacing--*`, `--wp--custom--radius--*` |
+| Token merge — `wp_theme_json_data_theme` | `functions.php` | Filter exists and merges colors, typography, spacing, radius, shadows |
+| Cache invalidation | `functions.php` | `quadnine_after_apply_client_tokens` hook calls `clean_cached_data()`, `wp_cache_flush_group('theme_json')`, `wp_cache_flush()` |
+| Google Fonts | `functions.php` | Reads `typography.google-fonts-url` from token file; falls back to Inter |
+| Token schema surface | `theme.json` | Palette has all 7 colors; spacing has 4 sizes; custom radius has button/card/input; shadows has card/button |
+| Token schema doc | `_linked-instructions/brand-guide-tokens-schema.md` | Schema doc matches what `functions.php` actually reads and maps |
+| Pattern count | `patterns/` | At least 15 patterns covering hero, CTA, testimonial, pricing, FAQ, contact, gallery |
+| Directory slug | Any slug reference in code or docs | Must always be `q9-base`, never `q9-gregale` or anything else |
+
+If any check fails, stop and report the discrepancy with file:line evidence before doing anything else.
+
 The parent project lives at: `C:\Users\kevin\OneDrive - QuadNine Ltd\Claude\Website Builder`
 
 ---
