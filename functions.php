@@ -40,6 +40,14 @@ add_action( 'init', function () {
 	register_block_pattern_category( 'q9', [ 'label' => 'QuadNine' ] );
 } );
 
+function q9_register_nav_menus() {
+	register_nav_menus( array(
+		'primary' => __( 'Primary Navigation', 'q9-base' ),
+		'footer'  => __( 'Footer Navigation',  'q9-base' ),
+	) );
+}
+add_action( 'init', 'q9_register_nav_menus' );
+
 // Patterns are auto-registered from /patterns/ via the block-patterns header.
 
 // Inject brand token CSS variables directly into <head>, bypassing theme.json cache.
