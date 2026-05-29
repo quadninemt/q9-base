@@ -1,8 +1,11 @@
 # Theme Fix Instructions — q9-base (q9-gregale)
 
-**Date:** 2026-05-28 | **Last verified:** 2026-05-29  
-**Repo:** https://github.com/quadninemt/q9-base  
-**Priority:** High — these fixes are blocking correct rendering on all client sites.
+> ✅ **ALL FIXES COMPLETE — 2026-05-29**  
+> All 5 fixes committed to `quadninemt/q9-base` (commits `a6d46da`, `71087c7`) and deployed to test.quadnine.mt.  
+> This file is retained for reference only — no further action required.
+
+**Date:** 2026-05-28 | **Completed:** 2026-05-29  
+**Repo:** https://github.com/quadninemt/q9-base
 
 ---
 
