@@ -7,6 +7,17 @@ https://github.com/quadninemt/q9-base
 
 ---
 
+## Completing tasks from linked instructions
+
+Whenever you complete tasks sourced from a `_linked-instructions/` file, update that file with:
+1. The completion status of each item (✅ Done / ⚠️ Partial / ❌ Skipped)
+2. A brief note on what was done and any decisions made
+3. The commit hash and/or date if code was changed
+
+Fill in any `## Outcome` or similar section the file already has. If there is no such section, append one.
+
+---
+
 ## Cross-project instructions — read first
 
 This project is part of the QuadNine Website Builder system. The Website Builder project may drop instruction or clarification files into this project's `_linked-instructions/` folder when decisions change that affect the theme.
