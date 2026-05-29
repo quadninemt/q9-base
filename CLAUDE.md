@@ -44,6 +44,34 @@ The parent project lives at: `C:\Users\kevin\OneDrive - QuadNine Ltd\Claude\Webs
 
 ---
 
+## Mobile-first requirements
+
+All patterns, templates, and template parts in this theme must be designed and verified mobile-first.
+
+**Breakpoints to design for:** 320px, 768px, 1024px, 1440px.
+
+**Mobile nav requirements:**
+- The navigation block must collapse at ≤768px (hamburger / overlay / slide-in pattern)
+- `overlayMenu:"mobile"` must be set on the `wp:navigation` block in `parts/header.html`
+- Hamburger touch target must be ≥44×44px
+- Overlay must trap focus and be dismissible via keyboard (Escape key)
+- Nav links must be ≥44px tall on touch devices
+
+**Patterns:**
+- All block patterns must be tested at 320px minimum width before committing
+- Hero sections: heading font size must scale down gracefully (use `clamp()` or fluid type scale where needed)
+- Grid/flex layouts must stack vertically at ≤480px
+- CTA buttons must be full-width on mobile
+
+**Do not:**
+- Set fixed pixel widths on containers (use `max-width` + `width: 100%`)
+- Use absolute positioning that breaks on small viewports
+- Omit `align="full"` on hero sections (breaks full-bleed at all widths)
+
+**Verify on the live test site** at mobile viewport before committing any template or pattern change.
+
+---
+
 ## Critical constraints — read before touching anything
 
 **Theme directory slug must be `q9-base`** — not q9-gregale, not anything else. The `apply-client-tokens` ability in q9-abilities-plugin has this hardcoded. If the theme installs under a different directory name, the ability writes `brand-guide-tokens.json` to the wrong location and client token application fails. Every reference to the theme slug in code, readme, and configuration must use `q9-base`.
