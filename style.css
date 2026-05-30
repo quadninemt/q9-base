@@ -2,7 +2,7 @@
 Theme Name:  q9-gregale
 Theme URI:   https://github.com/quadninemt/q9-base
 Description: QuadNine block theme — standalone FSE, deployed to all QuadNine-managed client sites. All visual differentiation is achieved through brand-guide-tokens.json; no per-client child themes.
-Version:     1.1.0
+Version:     1.2.0
 Requires at least: 6.9
 Tested up to:      7.0
 Requires PHP:      8.1
@@ -238,5 +238,18 @@ blockquote,
 	.site-header .wp-block-group.site-header__inner {
 		padding-left: var(--wp--preset--spacing--small);
 		padding-right: var(--wp--preset--spacing--small);
+	}
+}
+
+/* ==========================================================================
+   Pattern block styles — q9/media-text-row reversed variant
+   ========================================================================== */
+
+/* Swap column order at desktop only. Mobile stacking (≤781px) is unaffected,
+   so the image always renders above the text on small screens regardless of
+   which desktop side it sits on. WP stacks columns below 782px. */
+@media (min-width: 782px) {
+	.wp-block-columns.is-style-reversed {
+		flex-direction: row-reverse;
 	}
 }

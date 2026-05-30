@@ -48,6 +48,16 @@ function q9_register_nav_menus() {
 }
 add_action( 'init', 'q9_register_nav_menus' );
 
+// Register "Reversed (image right)" block style for q9/media-text-row.
+// Applies flex-direction:row-reverse to the inner wp:columns block at desktop (≥782px) only.
+// Mobile column stacking is unaffected — image always appears above text on small screens.
+add_action( 'init', function () {
+	register_block_style( 'core/columns', [
+		'name'  => 'reversed',
+		'label' => __( 'Reversed (image right)', 'q9-base' ),
+	] );
+} );
+
 // Patterns are auto-registered from /patterns/ via the block-patterns header.
 
 // Inject brand token CSS variables directly into <head>, bypassing theme.json cache.
