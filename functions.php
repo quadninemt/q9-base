@@ -267,7 +267,14 @@ add_filter( 'pre_set_site_transient_update_themes', function ( $transient ) {
 	return $transient;
 } );
 
-// Clear the update cache after a theme upgrade so the next check is fresh.
+// Clear our cache whenever WordPress forces a full update re-check ("Check Again" button).
+// Without this, clicking "Check Again" clears WP's transient but leaves our 12-hour
+// cache stale, so no update notification appears even when a new release exists.
+add_action( 'delete_site_transient_update_themes', function () {
+	delete_transient( 'q9_theme_update_check' );
+} );
+
+// Also clear after a successful theme upgrade.
 add_action( 'upgrader_process_complete', function ( $upgrader, $options ) {
 	if ( 'theme' === ( $options['type'] ?? '' ) ) {
 		delete_transient( 'q9_theme_update_check' );
