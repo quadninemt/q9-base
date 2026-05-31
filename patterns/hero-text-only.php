@@ -15,8 +15,8 @@
 	<!-- wp:group {"layout":{"type":"constrained","contentSize":"640px"},"style":{"spacing":{"blockGap":"var:preset|spacing|medium"}}} -->
 	<div class="wp-block-group">
 
-		<!-- wp:heading {"level":1,"textAlign":"center","style":{"typography":{"fontWeight":"800","lineHeight":"1.1"},"fontSize":"4xl"}} -->
-		<h1 class="wp-block-heading has-text-align-center" style="font-size:var(--wp--preset--font-size--4xl);font-weight:800;line-height:1.1">Your compelling headline goes here</h1>
+		<!-- wp:heading {"level":1,"textAlign":"center","style":{"typography":{"fontWeight":"800","lineHeight":"1.1"},"fontSize":"display"}} -->
+		<h1 class="wp-block-heading has-text-align-center" style="font-size:var(--wp--preset--font-size--display);font-weight:800;line-height:1.1">Your compelling headline goes here</h1>
 		<!-- /wp:heading -->
 
 		<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"var:preset|font-size|xl"},"color":{"text":"var:preset|color|neutral-dark"}}} -->

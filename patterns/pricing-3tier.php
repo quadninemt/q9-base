@@ -33,8 +33,8 @@
 				<!-- wp:paragraph {"style":{"typography":{"fontWeight":"600","fontSize":"var:preset|font-size|small","textTransform":"uppercase","letterSpacing":"0.08em"},"color":{"text":"var:preset|color|neutral-dark"}}} -->
 				<p style="color:var(--wp--preset--color--neutral-dark);font-size:var(--wp--preset--font-size--small);font-weight:600;letter-spacing:0.08em;text-transform:uppercase">Starter</p>
 				<!-- /wp:paragraph -->
-				<!-- wp:paragraph {"style":{"typography":{"fontSize":"var:preset|font-size|4xl","fontWeight":"800","lineHeight":"1"}}} -->
-				<p style="font-size:var(--wp--preset--font-size--4xl);font-weight:800;line-height:1">€49<span style="font-size:var(--wp--preset--font-size--medium);font-weight:400;color:var(--wp--preset--color--neutral-dark)">/mo</span></p>
+				<!-- wp:paragraph {"style":{"typography":{"fontSize":"var:preset|font-size|display","fontWeight":"800","lineHeight":"1"}}} -->
+				<p style="font-size:var(--wp--preset--font-size--display);font-weight:800;line-height:1">€49<span style="font-size:var(--wp--preset--font-size--medium);font-weight:400;color:var(--wp--preset--color--neutral-dark)">/mo</span></p>
 				<!-- /wp:paragraph -->
 				<!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|neutral-dark"},"typography":{"fontSize":"var:preset|font-size|small"}}} -->
 				<p style="color:var(--wp--preset--color--neutral-dark);font-size:var(--wp--preset--font-size--small)">For small businesses just getting started.</p>
@@ -76,8 +76,8 @@
 					<!-- /wp:paragraph -->
 				</div>
 				<!-- /wp:group -->
-				<!-- wp:paragraph {"style":{"typography":{"fontSize":"var:preset|font-size|4xl","fontWeight":"800","lineHeight":"1"},"color":{"text":"#ffffff"}}} -->
-				<p style="color:#ffffff;font-size:var(--wp--preset--font-size--4xl);font-weight:800;line-height:1">€99<span style="font-size:var(--wp--preset--font-size--medium);font-weight:400;color:rgba(255,255,255,0.8)">/mo</span></p>
+				<!-- wp:paragraph {"style":{"typography":{"fontSize":"var:preset|font-size|display","fontWeight":"800","lineHeight":"1"},"color":{"text":"#ffffff"}}} -->
+				<p style="color:#ffffff;font-size:var(--wp--preset--font-size--display);font-weight:800;line-height:1">€99<span style="font-size:var(--wp--preset--font-size--medium);font-weight:400;color:rgba(255,255,255,0.8)">/mo</span></p>
 				<!-- /wp:paragraph -->
 				<!-- wp:paragraph {"style":{"color":{"text":"rgba(255,255,255,0.8)"},"typography":{"fontSize":"var:preset|font-size|small"}}} -->
 				<p style="color:rgba(255,255,255,0.8);font-size:var(--wp--preset--font-size--small)">For growing businesses that need more.</p>
@@ -113,8 +113,8 @@
 				<!-- wp:paragraph {"style":{"typography":{"fontWeight":"600","fontSize":"var:preset|font-size|small","textTransform":"uppercase","letterSpacing":"0.08em"},"color":{"text":"var:preset|color|neutral-dark"}}} -->
 				<p style="color:var(--wp--preset--color--neutral-dark);font-size:var(--wp--preset--font-size--small);font-weight:600;letter-spacing:0.08em;text-transform:uppercase">Enterprise</p>
 				<!-- /wp:paragraph -->
-				<!-- wp:paragraph {"style":{"typography":{"fontSize":"var:preset|font-size|4xl","fontWeight":"800","lineHeight":"1"}}} -->
-				<p style="font-size:var(--wp--preset--font-size--4xl);font-weight:800;line-height:1">Custom</p>
+				<!-- wp:paragraph {"style":{"typography":{"fontSize":"var:preset|font-size|display","fontWeight":"800","lineHeight":"1"}}} -->
+				<p style="font-size:var(--wp--preset--font-size--display);font-weight:800;line-height:1">Custom</p>
 				<!-- /wp:paragraph -->
 				<!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|neutral-dark"},"typography":{"fontSize":"var:preset|font-size|small"}}} -->
 				<p style="color:var(--wp--preset--color--neutral-dark);font-size:var(--wp--preset--font-size--small)">For larger organisations with specific needs.</p>

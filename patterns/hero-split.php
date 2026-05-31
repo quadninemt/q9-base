@@ -25,8 +25,8 @@
 			<p style="color:var(--wp--preset--color--primary);font-size:var(--wp--preset--font-size--small);font-weight:600;letter-spacing:0.08em;text-transform:uppercase">Leading experts in your field</p>
 			<!-- /wp:paragraph -->
 
-			<!-- wp:heading {"level":1,"style":{"typography":{"fontWeight":"800","lineHeight":"1.1","fontSize":"var:preset|font-size|4xl"}}} -->
-			<h1 class="wp-block-heading" style="font-size:var(--wp--preset--font-size--4xl);font-weight:800;line-height:1.1">Your compelling headline goes here</h1>
+			<!-- wp:heading {"level":1,"style":{"typography":{"fontWeight":"800","lineHeight":"1.1","fontSize":"var:preset|font-size|display"}}} -->
+			<h1 class="wp-block-heading" style="font-size:var(--wp--preset--font-size--display);font-weight:800;line-height:1.1">Your compelling headline goes here</h1>
 			<!-- /wp:heading -->
 
 			<!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|neutral-dark"},"typography":{"fontSize":"var:preset|font-size|xl"}}} -->

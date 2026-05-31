@@ -19,8 +19,8 @@
 		<p class="has-text-align-center" style="color:var(--wp--preset--color--primary);font-size:4rem;line-height:1">"</p>
 		<!-- /wp:paragraph -->
 
-		<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"var:preset|font-size|2xl","fontWeight":"500","lineHeight":"1.4","fontStyle":"italic"}}} -->
-		<p class="has-text-align-center" style="font-size:var(--wp--preset--font-size--2xl);font-style:italic;font-weight:500;line-height:1.4">Working with this team transformed how we approach our business. The results have been outstanding and the process was smooth from start to finish.</p>
+		<!-- wp:paragraph {"align":"center","style":{"typography":{"fontSize":"var:preset|font-size|xxl","fontWeight":"500","lineHeight":"1.4","fontStyle":"italic"}}} -->
+		<p class="has-text-align-center" style="font-size:var(--wp--preset--font-size--xxl);font-style:italic;font-weight:500;line-height:1.4">Working with this team transformed how we approach our business. The results have been outstanding and the process was smooth from start to finish.</p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center","verticalAlignment":"center"},"style":{"spacing":{"blockGap":"var:preset|spacing|small"}}} -->

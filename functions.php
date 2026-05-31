@@ -72,6 +72,14 @@ add_action( 'wp_head', function () {
 		return;
 	}
 
+	// CSS-safe sanitiser: strips characters that are dangerous inside a <style> block.
+	// Do NOT use esc_attr() here — it HTML-encodes single quotes, which breaks
+	// font-family values such as 'Plus Jakarta Sans', system-ui, sans-serif.
+	// Inside a <style> element the output is CSS, not HTML; &#039; is literal text.
+	$css_safe = static function ( string $v ): string {
+		return preg_replace( '/[<>{};]/', '', wp_strip_all_tags( $v ) );
+	};
+
 	$vars = '';
 
 	if ( ! empty( $tokens['colors'] ) ) {
@@ -86,23 +94,23 @@ add_action( 'wp_head', function () {
 		];
 		foreach ( $map as $slug => $prop ) {
 			if ( isset( $tokens['colors'][ $slug ] ) ) {
-				$vars .= $prop . ':' . esc_attr( $tokens['colors'][ $slug ] ) . ';';
+				$vars .= $prop . ':' . $css_safe( $tokens['colors'][ $slug ] ) . ';';
 			}
 		}
 	}
 
 	if ( ! empty( $tokens['typography'] ) ) {
 		if ( isset( $tokens['typography']['body-font-family'] ) ) {
-			$vars .= '--wp--preset--font-family--body:' . esc_attr( $tokens['typography']['body-font-family'] ) . ';';
+			$vars .= '--wp--preset--font-family--body:' . $css_safe( $tokens['typography']['body-font-family'] ) . ';';
 		}
 		if ( isset( $tokens['typography']['heading-font-family'] ) ) {
-			$vars .= '--wp--preset--font-family--heading:' . esc_attr( $tokens['typography']['heading-font-family'] ) . ';';
+			$vars .= '--wp--preset--font-family--heading:' . $css_safe( $tokens['typography']['heading-font-family'] ) . ';';
 		}
 		if ( isset( $tokens['typography']['line-height-body'] ) ) {
-			$vars .= '--wp--custom--line-height--body:' . esc_attr( $tokens['typography']['line-height-body'] ) . ';';
+			$vars .= '--wp--custom--line-height--body:' . $css_safe( $tokens['typography']['line-height-body'] ) . ';';
 		}
 		if ( isset( $tokens['typography']['line-height-heading'] ) ) {
-			$vars .= '--wp--custom--line-height--heading:' . esc_attr( $tokens['typography']['line-height-heading'] ) . ';';
+			$vars .= '--wp--custom--line-height--heading:' . $css_safe( $tokens['typography']['line-height-heading'] ) . ';';
 		}
 	}
 
@@ -115,7 +123,7 @@ add_action( 'wp_head', function () {
 		];
 		foreach ( $spacing_map as $slug => $prop ) {
 			if ( isset( $tokens['spacing'][ $slug ] ) ) {
-				$vars .= $prop . ':' . esc_attr( $tokens['spacing'][ $slug ] ) . ';';
+				$vars .= $prop . ':' . $css_safe( $tokens['spacing'][ $slug ] ) . ';';
 			}
 		}
 	}
@@ -123,7 +131,7 @@ add_action( 'wp_head', function () {
 	if ( ! empty( $tokens['radius'] ) ) {
 		foreach ( [ 'button', 'card', 'input' ] as $key ) {
 			if ( isset( $tokens['radius'][ $key ] ) ) {
-				$vars .= '--wp--custom--radius--' . $key . ':' . esc_attr( $tokens['radius'][ $key ] ) . ';';
+				$vars .= '--wp--custom--radius--' . $key . ':' . $css_safe( $tokens['radius'][ $key ] ) . ';';
 			}
 		}
 	}
