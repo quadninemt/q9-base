@@ -121,7 +121,7 @@ with open('style.css', 'r', encoding='utf-8') as f:
             version = line.split(':', 1)[1].strip()
             break
 zip_name = os.path.join('..', 'q9-base-' + version + '.zip')
-exclude_prefixes = ['.git/', '_linked-instructions/', 'docs/', 'theme_fix.md', 'BRIEF.md', 'CLAUDE.md', '.gitignore']
+exclude_prefixes = ['.git/', '_linked-instructions/', 'docs/', 'theme_fix.md', 'BRIEF.md', 'CLAUDE.md', '.gitignore', 'brand-guide-tokens.json']
 with zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED) as zf:
     for root, dirs, files in os.walk('.'):
         dirs[:] = [d for d in dirs if d != '.git']
@@ -146,6 +146,7 @@ This produces `q9-base-{version}.zip` in the parent directory (e.g. `C:\Users\ke
 | `_linked-instructions/` | Internal project management files |
 | `docs/` | Developer reference docs — not needed at runtime |
 | `theme_fix.md`, `BRIEF.md`, `CLAUDE.md` | Development notes — not needed in WP |
+| `brand-guide-tokens.json` | Per-client token file — must NOT be in the zip so WordPress auto-updates don't overwrite client tokens |
 
 Everything else (`style.css`, `functions.php`, `theme.json`, `patterns/`, `templates/`, `parts/`, `editor-style.css`) is included.
 

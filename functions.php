@@ -206,6 +206,74 @@ add_filter( 'wp_theme_json_data_theme', function ( WP_Theme_JSON_Data $theme_jso
 	return new WP_Theme_JSON_Data( $data, 'theme' );
 } );
 
+// ---------------------------------------------------------------------------
+// Auto-updater — checks GitHub Releases for a newer version of this theme.
+// Surfaces an update notification in WP Admin → Appearance → Themes.
+// API response is cached for 12 hours to stay within GitHub rate limits (60/hr
+// unauthenticated). The zip attached to each release must have q9-base/ as its
+// root directory and must NOT include brand-guide-tokens.json (so client tokens
+// are preserved across updates).
+// ---------------------------------------------------------------------------
+add_filter( 'pre_set_site_transient_update_themes', function ( $transient ) {
+	if ( empty( $transient->checked ) ) {
+		return $transient;
+	}
+
+	$theme_slug = 'q9-base';
+	$current    = wp_get_theme( $theme_slug )->get( 'Version' );
+	$cache_key  = 'q9_theme_update_check';
+	$cached     = get_transient( $cache_key );
+
+	if ( false === $cached ) {
+		$response = wp_remote_get(
+			'https://api.github.com/repos/quadninemt/q9-base/releases/latest',
+			[
+				'timeout' => 10,
+				'headers' => [ 'User-Agent' => 'q9-base-theme-updater/' . $current ],
+			]
+		);
+
+		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+			// Cache a negative result for 1 hour to avoid hammering on error.
+			set_transient( $cache_key, [ 'version' => $current, 'package' => '' ], HOUR_IN_SECONDS );
+			return $transient;
+		}
+
+		$body    = json_decode( wp_remote_retrieve_body( $response ), true );
+		$version = ltrim( $body['tag_name'] ?? '', 'v' );
+		$package = '';
+
+		foreach ( $body['assets'] ?? [] as $asset ) {
+			if ( str_ends_with( $asset['name'], '.zip' ) ) {
+				$package = $asset['browser_download_url'];
+				break;
+			}
+		}
+
+		$cached = [ 'version' => $version, 'package' => $package ];
+		set_transient( $cache_key, $cached, 12 * HOUR_IN_SECONDS );
+	}
+
+	if ( ! empty( $cached['package'] ) && version_compare( $cached['version'], $current, '>' ) ) {
+		$transient->response[ $theme_slug ] = [
+			'theme'       => $theme_slug,
+			'new_version' => $cached['version'],
+			'url'         => 'https://github.com/quadninemt/q9-base/releases',
+			'package'     => $cached['package'],
+			'requires'    => '6.9',
+		];
+	}
+
+	return $transient;
+} );
+
+// Clear the update cache after a theme upgrade so the next check is fresh.
+add_action( 'upgrader_process_complete', function ( $upgrader, $options ) {
+	if ( 'theme' === ( $options['type'] ?? '' ) ) {
+		delete_transient( 'q9_theme_update_check' );
+	}
+}, 10, 2 );
+
 // Invalidate theme.json caches after apply-client-tokens writes a new token file.
 add_action( 'quadnine_after_apply_client_tokens', function () {
 	// WP 6.6+ static property cache on the resolver.
