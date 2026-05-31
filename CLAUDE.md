@@ -35,7 +35,7 @@ This project is part of the QuadNine Website Builder system. The Website Builder
 | Google Fonts | `functions.php` | Reads `typography.google-fonts-url` from token file; falls back to Inter |
 | Token schema surface | `theme.json` | Palette has all 7 colors; spacing has 4 sizes; custom radius has button/card/input; shadows has card/button |
 | Token schema doc | `_linked-instructions/brand-guide-tokens-schema.md` | Schema doc matches what `functions.php` actually reads and maps |
-| Pattern count | `patterns/` | At least 15 patterns covering hero, CTA, testimonial, pricing, FAQ, contact, gallery |
+| Pattern count | `patterns/` | At least 23 patterns covering hero, CTA, testimonial, pricing, FAQ, contact, gallery, team, process, post grid, media-text, icon grid, logo wall |
 | Directory slug | Any slug reference in code or docs | Must always be `q9-base`, never `q9-gregale` or anything else |
 
 If any check fails, stop and report the discrepancy with file:line evidence before doing anything else.
@@ -93,6 +93,72 @@ Full integration spec: `BRIEF.md` → Integration with q9-abilities-plugin
 - Theme version bumps propagate changes to all client sites
 
 Full architectural context: `C:\Users\kevin\OneDrive - QuadNine Ltd\Claude\Website Builder\CLAUDE.md`
+
+---
+
+## Building a release zip (for WordPress admin upload)
+
+When creating a GitHub release or a zip for manual WordPress upload, follow this procedure exactly.
+
+### Rules
+
+- **Filename format:** `q9-base-{version}.zip` — e.g. `q9-base-1.2.0.zip`. The version is read from `style.css` automatically (see command below). WordPress uses the folder name inside the zip (`q9-base/`), not the zip filename, but the versioned filename makes releases traceable.
+- **Zip root must be the theme folder:** the zip must contain `q9-base/` as its top-level directory. Installing a zip whose root is the theme files directly (not inside a named folder) will fail or install under the wrong slug.
+- **Use Bash, not PowerShell** — `zip` is available in the Git Bash environment. Never use `Compress-Archive` or PowerShell for this.
+- **Save the zip one level up** from the project directory — zipping from inside the project would include the zip itself on the next run.
+
+### Command
+
+Run from inside the `q9-base/` project directory using Bash. The Git Bash environment on this machine does not have `zip` installed — use Python's `zipfile` module instead (called from Bash, not PowerShell):
+
+```bash
+python -c "
+import zipfile, os
+version = None
+with open('style.css', 'r', encoding='utf-8') as f:
+    for line in f:
+        if line.startswith('Version:'):
+            version = line.split(':', 1)[1].strip()
+            break
+zip_name = os.path.join('..', 'q9-base-' + version + '.zip')
+exclude_prefixes = ['.git/', '_linked-instructions/', 'docs/', 'theme_fix.md', 'BRIEF.md', 'CLAUDE.md', '.gitignore']
+with zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED) as zf:
+    for root, dirs, files in os.walk('.'):
+        dirs[:] = [d for d in dirs if d != '.git']
+        for fname in files:
+            filepath = os.path.join(root, fname)
+            arcpath = filepath.replace(chr(92), '/').lstrip('./')
+            if any(arcpath == ep or arcpath.startswith(ep) for ep in exclude_prefixes):
+                continue
+            zf.write(filepath, 'q9-base/' + arcpath)
+size = os.path.getsize(zip_name)
+print('Created: q9-base-' + version + '.zip (' + str(size//1024) + ' KB)')
+"
+```
+
+This produces `q9-base-{version}.zip` in the parent directory (e.g. `C:\Users\kevin\OneDrive - QuadNine Ltd\Claude\q9-base-1.2.0.zip`), ready to upload via **WP Admin → Appearance → Themes → Add New → Upload Theme**.
+
+### What is excluded from the zip
+
+| Excluded | Reason |
+|---|---|
+| `.git/` | Git history — not needed in WP, doubles the file size |
+| `_linked-instructions/` | Internal project management files |
+| `docs/` | Developer reference docs — not needed at runtime |
+| `theme_fix.md`, `BRIEF.md`, `CLAUDE.md` | Development notes — not needed in WP |
+
+Everything else (`style.css`, `functions.php`, `theme.json`, `patterns/`, `templates/`, `parts/`, `editor-style.css`) is included.
+
+### Also create a GitHub release
+
+After building the zip, create a GitHub release so there is a permanent versioned download:
+
+```bash
+gh release create v{VERSION} \
+  --title "v{VERSION} — {short description}" \
+  --notes "{changelog}" \
+  "../q9-base-${VERSION}.zip"
+```
 
 ---
 
