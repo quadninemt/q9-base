@@ -98,6 +98,26 @@ For build-workflow lessons (Executor mistakes, page content issues), see `Websit
 
 ---
 
+## LL-theme-10 — Never use `esc_attr()` for values injected into a CSS `<style>` block
+
+**Date:** 2026-05-31  
+**Symptom:** Multi-word font families (`'Plus Jakarta Sans'`, `'Playfair Display'`) were silently ignored. Headings fell back to system-ui / serif. Single-word families (Inter) were unaffected.  
+**Root cause:** `esc_attr()` HTML-encodes single quotes — `'` becomes `&#039;`. Inside a `<style>` element, `&#039;` is literal text (not a quote), so the font-family declaration was malformed. The browser discards the quoted name and falls back to the next token.  
+**Fix:** Replaced all `esc_attr()` calls in the `wp_head` token injection with a CSS-safe sanitizer: `preg_replace( '/[<>{};]/', '', wp_strip_all_tags( $v ) )`. This strips characters dangerous in CSS while preserving single quotes.  
+**Rule:** Output into a `<style>` block is **CSS context, not HTML context**. Use a CSS sanitizer, never `esc_attr()`. The two contexts have different escaping rules.
+
+---
+
+## LL-theme-11 — Numeric-leading preset slugs are not emitted by WordPress
+
+**Date:** 2026-05-31  
+**Symptom:** `--wp--preset--font-size--2xl`, `--wp--preset--font-size--3xl`, `--wp--preset--font-size--4xl` were never generated in `:root`. References to them resolved to empty strings, collapsing h1/h2/h3 to body size (~20px). Slugs `small`, `medium`, `large`, `xl` (all non-numeric-leading) emitted correctly.  
+**Root cause:** WordPress's preset/CSS-var generation has a known issue with slugs that begin with a digit. The slug is used directly as a CSS custom property name segment — `--wp--preset--font-size--2xl` — which is technically invalid CSS (custom properties can't start a segment with a digit after `--`).  
+**Fix:** Renamed the three slugs to non-numeric-leading forms: `2xl`→`xxl`, `3xl`→`xxxl`, `4xl`→`display`. Updated `theme.json` `fontSizes`, `styles.elements` h1/h2/h3, and all 6 pattern files that referenced the old slugs.  
+**Rule:** WordPress font-size (and other preset) slugs must not begin with a digit. Use alphabetic-leading slugs only: `xxl`, `xxxl`, `display`, `hero`, etc.
+
+---
+
 ## LL-theme-9 — `className` on `wp:template-part` is required for CSS scoping
 
 **Date:** 2026-05-29  
