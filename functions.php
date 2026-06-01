@@ -224,6 +224,13 @@ add_filter( 'pre_set_site_transient_update_themes', function ( $transient ) {
 	$cache_key  = 'q9_theme_update_check';
 	$cached     = get_transient( $cache_key );
 
+	// "Check Again" calls wp_update_themes( true ) — it never calls delete_site_transient(),
+	// so the delete_site_transient_update_themes action never fires. Detect the force-check
+	// flag directly and bypass our cache so the filter makes a fresh GitHub API call.
+	if ( ! empty( $_GET['force-check'] ) ) {
+		$cached = false;
+	}
+
 	if ( false === $cached ) {
 		$response = wp_remote_get(
 			'https://api.github.com/repos/quadninemt/q9-base/releases/latest',
@@ -267,9 +274,9 @@ add_filter( 'pre_set_site_transient_update_themes', function ( $transient ) {
 	return $transient;
 } );
 
-// Clear our cache whenever WordPress forces a full update re-check ("Check Again" button).
-// Without this, clicking "Check Again" clears WP's transient but leaves our 12-hour
-// cache stale, so no update notification appears even when a new release exists.
+// Clear our cache when the update_themes transient is explicitly deleted (e.g. after a
+// core update or manual DB operation). Does NOT fire during "Check Again" — that case
+// is handled above via the $_GET['force-check'] bypass in the filter itself.
 add_action( 'delete_site_transient_update_themes', function () {
 	delete_transient( 'q9_theme_update_check' );
 } );
