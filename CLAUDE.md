@@ -40,7 +40,7 @@ This project is part of the QuadNine Website Builder system. The Website Builder
 
 If any check fails, stop and report the discrepancy with file:line evidence before doing anything else.
 
-The parent project lives at: `C:\Users\kevin\OneDrive - QuadNine Ltd\Claude\Website Builder`
+The parent project lives at: `C:\dev\Website Builder` (previously `C:\Users\kevin\OneDrive - QuadNine Ltd\Claude\Website Builder`)
 
 ---
 
@@ -92,7 +92,7 @@ Full integration spec: `BRIEF.md` → Integration with q9-abilities-plugin
 - Block templates and template parts under `/templates/` and `/parts/` carry the layout
 - Theme version bumps propagate changes to all client sites
 
-Full architectural context: `C:\Users\kevin\OneDrive - QuadNine Ltd\Claude\Website Builder\CLAUDE.md`
+Full architectural context: `C:\dev\Website Builder\CLAUDE.md`
 
 ---
 
@@ -136,7 +136,7 @@ print('Created: q9-base-' + version + '.zip (' + str(size//1024) + ' KB)')
 "
 ```
 
-This produces `q9-base-{version}.zip` in the parent directory (e.g. `C:\Users\kevin\OneDrive - QuadNine Ltd\Claude\q9-base-1.2.0.zip`), ready to upload via **WP Admin → Appearance → Themes → Add New → Upload Theme**.
+This produces `q9-base-{version}.zip` in the parent directory (e.g. `C:\dev\q9-base-1.2.4.zip`), ready to upload via **WP Admin → Appearance → Themes → Add New → Upload Theme**.
 
 ### What is excluded from the zip
 
@@ -174,4 +174,4 @@ During development and testing, Claude can interact directly with a live WordPre
 
 Use the plugin for all verification steps — do not treat a file as complete until it has been tested on the live site.
 
-Plugin project: `C:\Users\kevin\OneDrive - QuadNine Ltd\Claude\q9-abilities-plugin`
+Plugin project: `C:\dev\q9-abilities-plugin` (previously `C:\Users\kevin\OneDrive - QuadNine Ltd\Claude\q9-abilities-plugin`)
