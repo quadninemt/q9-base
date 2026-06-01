@@ -137,6 +137,26 @@ register_block_style( 'core/columns', [
 
 ---
 
+## Icons — inline SVG preferred, no uploaded SVGs
+
+The SVG Support plugin is **not** in the QuadNine plugin stack. Patterns must not assume clients can upload `.svg` files.
+
+**For icon slots** (`icon-grid`, `logo-wall` icon tiles, feature badges): use **inline SVG** directly in the pattern markup. Inline SVGs are crisp at all sizes, themeable via `currentColor` or preset colour vars, require no upload, and carry no plugin dependency. Example:
+
+```html
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="2"/>
+</svg>
+```
+
+**For photographic slots** (team photos, hero images, post thumbnails): `<img src="" alt="…">` with an empty `src` placeholder is correct — the Executor fills these with uploaded PNG/JPG media at build time.
+
+**For client logo slots** (`logo-wall`): prefer `<img src="" alt="Brand name">` with PNG/JPG. If a client supplies an SVG logo, they can upload it directly via the media library (the web server serves SVGs fine without the plugin) — but patterns must not require SVG upload support.
+
+## Contact form embed
+
+The current form plugin is **Fluent Forms** (free tier). Use `[fluentform id="N"]` as the placeholder hint in contact patterns — not `[contact-form-7 id="N"]`.
+
 ## Placeholder content
 
 Ship with neutral placeholder copy and empty `src=""` images. The Executor swaps in real client content at build time. Do **not** bake in client-specific content (URLs, names, phone numbers).

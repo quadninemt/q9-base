@@ -80,7 +80,7 @@
 			<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|large","bottom":"var:preset|spacing|large","left":"var:preset|spacing|large","right":"var:preset|spacing|large"}},"border":{"radius":"var:custom|radius|card"},"color":{"background":"var:preset|color|neutral-light"}},"layout":{"type":"constrained"}} -->
 			<div class="wp-block-group" style="background-color:var(--wp--preset--color--neutral-light);border-radius:var(--wp--custom--radius--card);padding:var(--wp--preset--spacing--large)">
 				<!-- wp:html -->
-				<!-- Contact form embed — replace with your form shortcode or embed code, e.g. [contact-form-7 id="1"] -->
+				<!-- Contact form embed — replace with your Fluent Forms shortcode, e.g. [fluentform id="1"] -->
 				<p style="color:var(--wp--preset--color--neutral-dark);text-align:center;padding:2rem 0;">[Contact form embed]</p>
 				<!-- /wp:html -->
 			</div>
