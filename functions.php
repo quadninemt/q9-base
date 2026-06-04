@@ -30,6 +30,17 @@ function q9_get_google_fonts_url(): string {
 
 add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_style( 'q9-fonts', q9_get_google_fonts_url(), [], null );
+
+	// Block themes do NOT auto-load style.css on the front end (unlike classic themes).
+	// Enqueue it explicitly so the hand-written theme CSS (header, footer, navigation,
+	// focus styles, pagination, block-style variants, etc.) actually reaches the page.
+	// Versioned by the theme version so updates bust the browser cache.
+	wp_enqueue_style(
+		'q9-style',
+		get_stylesheet_uri(),
+		[ 'q9-fonts' ],
+		wp_get_theme()->get( 'Version' )
+	);
 } );
 
 add_action( 'enqueue_block_editor_assets', function () {

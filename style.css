@@ -4,7 +4,7 @@ Theme URI:   https://quadnine.mt
 Author:      QuadNine
 Author URI:  https://quadnine.mt
 Description: A clean, fast Full Site Editing theme for professional service businesses. Every colour, font and spacing value is driven by your brand — so one theme looks and feels completely different for each client. No coding required. Built and maintained by QuadNine.
-Version:     1.3.0
+Version:     1.3.1
 Requires at least: 6.9
 Tested up to:      7.0
 Requires PHP:      8.1
@@ -313,13 +313,25 @@ blockquote,
    Header CTA (gap T2) — parts/header.html
    ========================================================================== */
 
-/* Keep the CTA visible but compact on mobile; the nav itself collapses to the
-   overlay hamburger independently. */
-@media (max-width: 600px) {
-	.q9-header-cta .wp-block-button__link {
-		padding-left: 0.875rem;
-		padding-right: 0.875rem;
-		font-size: var(--wp--preset--font-size--small);
+/* The CTA must never deform. Without these, a tight header flex row (logo + many nav
+   items + CTA) squeezes the button until its label wraps one character per line and the
+   header blows up vertically (gap T11). flex-shrink:0 keeps its width; white-space:nowrap
+   keeps the label on one line. */
+.q9-header-cta {
+	flex-shrink: 0;
+}
+
+.q9-header-cta .wp-block-button__link {
+	white-space: nowrap;
+}
+
+/* Between the nav's mobile-overlay breakpoint (~600px) and a comfortable desktop width,
+   the full horizontal nav + CTA don't fit. Hide the inline header CTA in that band so it
+   never crowds the nav; it reappears at ≥901px and the action is still reachable in-page.
+   Below 600px the nav itself becomes the overlay hamburger. */
+@media (max-width: 900px) {
+	.q9-header-cta {
+		display: none;
 	}
 }
 

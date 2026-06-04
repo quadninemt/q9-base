@@ -97,3 +97,12 @@ Completed 2026-06-04, shipped in theme **v1.3.0**.
 
 **Pattern count:** 23 → 27.
 **Still open (deferred):** T9 blog archive (blocked on plugin GAP P1). Plugin commissions T2/P3 nav-ref + T8 colour-key validation (planned, not coded).
+
+---
+
+## Round 2 defect fixes → v1.3.1 (2026-06-04)
+
+Live verification surfaced two HIGH defects (T11, T12 in `theme-gaps.md`):
+
+- **T12 root cause** — `style.css` was never enqueued on the front end. Block themes don't auto-load it; `functions.php` enqueued only Google Fonts. **All** hand-written theme CSS (header, footer, nav, focus, pagination + every v1.3.0 block-style/variant) was dead on the front end. Fixed: `wp_enqueue_style('q9-style', get_stylesheet_uri(), ['q9-fonts'], <theme version>)`. Default `.site-footer` now styled; footer-columns *selection* remains plugin GAP P8.
+- **T11** — header CTA collapsed to a vertical letter-stack at ~894px. Fixed: `.q9-header-cta { flex-shrink:0 }` + `.wp-block-button__link { white-space:nowrap }`; hidden 601–900px (shows ≥901px, nav overlay <600px).
