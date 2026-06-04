@@ -109,7 +109,7 @@ When creating a GitHub release or a zip for manual WordPress upload, follow this
 
 ### Command
 
-Run from inside the `q9-base/` project directory using Bash. The Git Bash environment on this machine does not have `zip` installed — use Python's `zipfile` module instead (called from Bash, not PowerShell):
+Run from inside the `q9-wp-theme/` project directory using Bash. The Git Bash environment on this machine does not have `zip` installed — use Python's `zipfile` module instead (called from Bash, not PowerShell):
 
 ```bash
 python -c "
@@ -128,6 +128,8 @@ with zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED) as zf:
         for fname in files:
             filepath = os.path.join(root, fname)
             arcpath = filepath.replace(chr(92), '/').lstrip('./')
+            if arcpath.endswith('.zip'):
+                continue
             if any(arcpath == ep or arcpath.startswith(ep) for ep in exclude_prefixes):
                 continue
             zf.write(filepath, 'q9-base/' + arcpath)
@@ -147,6 +149,7 @@ This produces `q9-base-{version}.zip` in the parent directory (e.g. `C:\dev\q9-b
 | `docs/` | Developer reference docs — not needed at runtime |
 | `theme_fix.md`, `BRIEF.md`, `CLAUDE.md` | Development notes — not needed in WP |
 | `brand-guide-tokens.json` | Per-client token file — must NOT be in the zip so WordPress auto-updates don't overwrite client tokens |
+| `*.zip` | Any zip in the tree (e.g. an earlier release build left in the repo root) — excluded so it isn't bundled into the next build |
 
 Everything else (`style.css`, `functions.php`, `theme.json`, `patterns/`, `templates/`, `parts/`, `editor-style.css`) is included.
 
