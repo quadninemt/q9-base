@@ -34,3 +34,33 @@ body {
 	max-width: 100%;
 	height: auto;
 }
+
+/* Block style — core/group "Flush top" (gap T10) */
+.editor-styles-wrapper .wp-block-group.is-style-flush-top {
+	padding-top: 0 !important;
+}
+
+/* Multi-column footer variant (gap T1) */
+.editor-styles-wrapper .q9-footer-columns {
+	background-color: var(--wp--preset--color--neutral-dark);
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.editor-styles-wrapper .q9-footer-columns h2,
+.editor-styles-wrapper .q9-footer-columns h3,
+.editor-styles-wrapper .q9-footer-columns a {
+	color: #ffffff;
+}
+
+.editor-styles-wrapper .q9-footer-columns .q9-footer-links {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* FAQ accordion (gap T5) */
+.editor-styles-wrapper .q9-faq-accordion .wp-block-details summary {
+	cursor: pointer;
+	font-weight: 600;
+	list-style: none;
+}

@@ -18,7 +18,31 @@
         { "slug": "neutral-light","name": "Neutral Light","color": "#F9FAFB" },
         { "slug": "neutral-dark", "name": "Neutral Dark", "color": "#374151" },
         { "slug": "background",   "name": "Background",   "color": "#FFFFFF" },
-        { "slug": "text",         "name": "Text",         "color": "#111827" }
+        { "slug": "text",         "name": "Text",         "color": "#111827" },
+
+        { "slug": "primary-50",  "name": "Primary 50",  "color": "#EBF1FD" },
+        { "slug": "primary-100", "name": "Primary 100", "color": "#D6E4FB" },
+        { "slug": "primary-200", "name": "Primary 200", "color": "#AEC8F7" },
+        { "slug": "primary-300", "name": "Primary 300", "color": "#85ADF3" },
+        { "slug": "primary-400", "name": "Primary 400", "color": "#4D82E8" },
+        { "slug": "primary-500", "name": "Primary 500", "color": "#1A56DB" },
+        { "slug": "primary-600", "name": "Primary 600", "color": "#1648B8" },
+        { "slug": "primary-700", "name": "Primary 700", "color": "#123A94" },
+        { "slug": "primary-800", "name": "Primary 800", "color": "#0D2C70" },
+        { "slug": "primary-900", "name": "Primary 900", "color": "#091E4C" },
+
+        { "slug": "accent-dark", "name": "Accent Dark", "color": "#C53030" },
+        { "slug": "accent-50",   "name": "Accent 50",   "color": "#FDECEC" },
+        { "slug": "accent-200",  "name": "Accent 200",  "color": "#F9B4B4" },
+
+        { "slug": "snow",   "name": "Snow",   "color": "#FAFBFC" },
+        { "slug": "cloud",  "name": "Cloud",  "color": "#F1F3F5" },
+        { "slug": "silver", "name": "Silver", "color": "#D9DEE3" },
+        { "slug": "pewter", "name": "Pewter", "color": "#9AA5B1" },
+        { "slug": "slate",  "name": "Slate",  "color": "#4B5563" },
+        { "slug": "ink",    "name": "Ink",    "color": "#1E1B4B" },
+
+        { "slug": "success", "name": "Success", "color": "#16A34A" }
       ]
     },
     "typography": {
@@ -304,9 +328,10 @@
     }
   },
   "templateParts": [
-    { "name": "header",    "title": "Header",    "area": "header" },
-    { "name": "footer",    "title": "Footer",    "area": "footer" },
-    { "name": "post-meta", "title": "Post Meta", "area": "uncategorized" }
+    { "name": "header",         "title": "Header",            "area": "header" },
+    { "name": "footer",         "title": "Footer",            "area": "footer" },
+    { "name": "footer-columns", "title": "Footer (columns)",  "area": "footer" },
+    { "name": "post-meta",      "title": "Post Meta",         "area": "uncategorized" }
   ],
   "customTemplates": [
     { "name": "front-page", "title": "Front Page",    "postTypes": ["page"] },

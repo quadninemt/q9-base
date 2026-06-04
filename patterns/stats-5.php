@@ -1,10 +1,10 @@
 <?php
 /**
- * Title: Stats Row
- * Slug: q9/stats-row
+ * Title: Stats Row (5 stats)
+ * Slug: q9/stats-5
  * Categories: q9
- * Keywords: stats, numbers, figures, metrics, social proof
- * Description: A row of 4 bold statistics with labels, ideal for demonstrating impact. For 5 stats use the q9/stats-5 pattern.
+ * Keywords: stats, numbers, figures, metrics, social proof, five
+ * Description: A row of 5 bold statistics with labels. Same styling as q9/stats-row; use when the source needs five figures. Stacks 1-up on mobile.
  * Viewport Width: 1280
  */
 ?>
@@ -55,6 +55,17 @@
 			<!-- /wp:heading -->
 			<!-- wp:paragraph {"align":"center","style":{"color":{"text":"rgba(255,255,255,0.8)"},"typography":{"fontWeight":"500"}}} -->
 			<p class="has-text-align-center" style="color:rgba(255,255,255,0.8);font-weight:500">Projects delivered</p>
+			<!-- /wp:paragraph -->
+		</div>
+		<!-- /wp:column -->
+
+		<!-- wp:column {"style":{"spacing":{"blockGap":"var:preset|spacing|small"}}} -->
+		<div class="wp-block-column">
+			<!-- wp:heading {"level":3,"textAlign":"center","style":{"typography":{"fontWeight":"800","fontSize":"var:preset|font-size|display","lineHeight":"1"},"color":{"text":"#ffffff"}}} -->
+			<h3 class="wp-block-heading has-text-align-center" style="color:#ffffff;font-size:var(--wp--preset--font-size--display);font-weight:800;line-height:1">24/7</h3>
+			<!-- /wp:heading -->
+			<!-- wp:paragraph {"align":"center","style":{"color":{"text":"rgba(255,255,255,0.8)"},"typography":{"fontWeight":"500"}}} -->
+			<p class="has-text-align-center" style="color:rgba(255,255,255,0.8);font-weight:500">Support coverage</p>
 			<!-- /wp:paragraph -->
 		</div>
 		<!-- /wp:column -->

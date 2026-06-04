@@ -56,6 +56,15 @@ add_action( 'init', function () {
 		'name'  => 'reversed',
 		'label' => __( 'Reversed (image right)', 'q9-base' ),
 	] );
+
+	// "Flush top" — zeroes the top padding of a section group so repeats of the same
+	// full-width section pattern (e.g. three q9/services-grid-3 stacked into a 9-card grid)
+	// don't double up xlarge padding at the seam. Apply to the 2nd+ instance in a stack.
+	// See _linked-instructions commission doc for the approved stacking guidance.
+	register_block_style( 'core/group', [
+		'name'  => 'flush-top',
+		'label' => __( 'Flush top (no top padding)', 'q9-base' ),
+	] );
 } );
 
 // Patterns are auto-registered from /patterns/ via the block-patterns header.
@@ -83,19 +92,17 @@ add_action( 'wp_head', function () {
 	$vars = '';
 
 	if ( ! empty( $tokens['colors'] ) ) {
-		$map = [
-			'primary'       => '--wp--preset--color--primary',
-			'secondary'     => '--wp--preset--color--secondary',
-			'accent'        => '--wp--preset--color--accent',
-			'neutral-light' => '--wp--preset--color--neutral-light',
-			'neutral-dark'  => '--wp--preset--color--neutral-dark',
-			'background'    => '--wp--preset--color--background',
-			'text'          => '--wp--preset--color--text',
-		];
-		foreach ( $map as $slug => $prop ) {
-			if ( isset( $tokens['colors'][ $slug ] ) ) {
-				$vars .= $prop . ':' . $css_safe( $tokens['colors'][ $slug ] ) . ';';
+		// Emit a --wp--preset--color--{slug} variable for every colour key in the token file.
+		// This covers the 7 semantic colours (primary, secondary, accent, neutral-light,
+		// neutral-dark, background, text) AND the optional extended scale (primary-50…900,
+		// accent-dark/50/200, snow/cloud/silver/pewter/slate/ink, success). Any slug present
+		// in theme.json's palette is overridden; extra slugs are emitted harmlessly.
+		foreach ( $tokens['colors'] as $slug => $value ) {
+			// Slug must match WordPress preset slug rules: lowercase alphanumerics + hyphens.
+			if ( ! is_string( $slug ) || ! preg_match( '/^[a-z0-9-]+$/', $slug ) ) {
+				continue;
 			}
+			$vars .= '--wp--preset--color--' . $slug . ':' . $css_safe( $value ) . ';';
 		}
 	}
 
@@ -155,12 +162,26 @@ add_filter( 'wp_theme_json_data_theme', function ( WP_Theme_JSON_Data $theme_jso
 	$data = $theme_json->get_data();
 
 	if ( ! empty( $tokens['colors'] ) ) {
+		// Override any palette swatch whose slug matches a token colour.
+		$seen = [];
 		foreach ( $data['settings']['color']['palette'] as &$swatch ) {
 			if ( isset( $tokens['colors'][ $swatch['slug'] ] ) ) {
 				$swatch['color'] = $tokens['colors'][ $swatch['slug'] ];
 			}
+			$seen[ $swatch['slug'] ] = true;
 		}
 		unset( $swatch );
+		// Append any token colour that is not already in the palette (extended scale slots a
+		// client supplies that the theme default omits), so the Site Editor exposes them.
+		foreach ( $tokens['colors'] as $slug => $value ) {
+			if ( is_string( $slug ) && preg_match( '/^[a-z0-9-]+$/', $slug ) && empty( $seen[ $slug ] ) ) {
+				$data['settings']['color']['palette'][] = [
+					'slug'  => $slug,
+					'name'  => ucwords( str_replace( '-', ' ', $slug ) ),
+					'color' => $value,
+				];
+			}
+		}
 	}
 
 	if ( ! empty( $tokens['typography'] ) ) {

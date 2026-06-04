@@ -4,7 +4,7 @@ Theme URI:   https://quadnine.mt
 Author:      QuadNine
 Author URI:  https://quadnine.mt
 Description: A clean, fast Full Site Editing theme for professional service businesses. Every colour, font and spacing value is driven by your brand — so one theme looks and feels completely different for each client. No coding required. Built and maintained by QuadNine.
-Version:     1.2.8
+Version:     1.3.0
 Requires at least: 6.9
 Tested up to:      7.0
 Requires PHP:      8.1
@@ -254,4 +254,107 @@ blockquote,
 	.wp-block-columns.is-style-reversed {
 		flex-direction: row-reverse;
 	}
+}
+
+/* ==========================================================================
+   Block style — core/group "Flush top" (q9 stacking, gap T10)
+   ========================================================================== */
+
+/* Removes the top padding of a section group. Apply to the 2nd+ instance when
+   chaining repeats of the same full-width section pattern so the xlarge top+bottom
+   padding doesn't double up at the seam. */
+.wp-block-group.is-style-flush-top {
+	padding-top: 0 !important;
+}
+
+/* ==========================================================================
+   Multi-column footer variant (gap T1) — parts/footer-columns.html
+   ========================================================================== */
+
+/* Self-contained dark footer: works whether or not the template-part wrapper
+   carries the .site-footer class. */
+.q9-footer-columns {
+	background-color: var(--wp--preset--color--neutral-dark);
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.q9-footer-columns a {
+	color: rgba(255, 255, 255, 0.7);
+	text-decoration: none;
+}
+
+.q9-footer-columns a:hover {
+	color: #ffffff;
+}
+
+.q9-footer-columns h2,
+.q9-footer-columns h3,
+.q9-footer-columns strong,
+.q9-footer-columns .wp-block-site-title a {
+	color: #ffffff;
+}
+
+/* Footer link lists — strip default list styling, tighten spacing. */
+.q9-footer-columns .q9-footer-links {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.q9-footer-columns .q9-footer-links li {
+	margin: 0;
+}
+
+.q9-footer-columns .q9-footer-links p {
+	margin: 0;
+}
+
+/* ==========================================================================
+   Header CTA (gap T2) — parts/header.html
+   ========================================================================== */
+
+/* Keep the CTA visible but compact on mobile; the nav itself collapses to the
+   overlay hamburger independently. */
+@media (max-width: 600px) {
+	.q9-header-cta .wp-block-button__link {
+		padding-left: 0.875rem;
+		padding-right: 0.875rem;
+		font-size: var(--wp--preset--font-size--small);
+	}
+}
+
+/* ==========================================================================
+   Navigation submenu / dropdown (gap T2)
+   ========================================================================== */
+
+/* Styled dropdown panel for nav submenus (e.g. a Services menu with children).
+   Applies once a wp_navigation menu with sub-items is wired in (plugin nav-ref). */
+.wp-block-navigation .wp-block-navigation-submenu .wp-block-navigation__submenu-container {
+	background-color: var(--wp--preset--color--background);
+	border: 1px solid var(--wp--preset--color--neutral-light);
+	border-radius: var(--wp--custom--radius--card);
+	box-shadow: var(--wp--preset--shadow--card);
+	padding: 0.5rem;
+	min-width: 220px;
+}
+
+.wp-block-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+	padding: 0.5rem 0.75rem;
+	border-radius: var(--wp--custom--radius--input);
+}
+
+.wp-block-navigation .wp-block-navigation__submenu-container .wp-block-navigation-item__content:hover {
+	background-color: var(--wp--preset--color--neutral-light);
+}
+
+/* FAQ accordion (gap T5) — q9/faq-accordion: pointer + open-state marker. */
+.q9-faq-accordion .wp-block-details summary {
+	cursor: pointer;
+	font-weight: 600;
+	font-size: var(--wp--preset--font-size--large);
+	list-style: none;
+}
+
+.q9-faq-accordion .wp-block-details summary::-webkit-details-marker {
+	display: none;
 }

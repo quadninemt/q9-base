@@ -39,6 +39,10 @@
 				<!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|neutral-dark"}}} -->
 				<p style="color:var(--wp--preset--color--neutral-dark)">A short description of this service and the value it delivers to your clients.</p>
 				<!-- /wp:paragraph -->
+				<!-- Optional "Learn more" link — delete this paragraph if the card has no destination. margin-top:auto keeps it pinned to the bottom of the card. -->
+				<!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"auto"}}},"textColor":"primary"} -->
+				<p class="has-primary-color has-text-color" style="margin-top:auto;font-weight:600"><a href="#">Learn more →</a></p>
+				<!-- /wp:paragraph -->
 			</div>
 			<!-- /wp:group -->
 		</div>
@@ -57,6 +61,10 @@
 				<!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|neutral-dark"}}} -->
 				<p style="color:var(--wp--preset--color--neutral-dark)">A short description of this service and the value it delivers to your clients.</p>
 				<!-- /wp:paragraph -->
+				<!-- Optional "Learn more" link — delete this paragraph if the card has no destination. margin-top:auto keeps it pinned to the bottom of the card. -->
+				<!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"auto"}}},"textColor":"primary"} -->
+				<p class="has-primary-color has-text-color" style="margin-top:auto;font-weight:600"><a href="#">Learn more →</a></p>
+				<!-- /wp:paragraph -->
 			</div>
 			<!-- /wp:group -->
 		</div>
@@ -74,6 +82,10 @@
 				<!-- /wp:heading -->
 				<!-- wp:paragraph {"style":{"color":{"text":"var:preset|color|neutral-dark"}}} -->
 				<p style="color:var(--wp--preset--color--neutral-dark)">A short description of this service and the value it delivers to your clients.</p>
+				<!-- /wp:paragraph -->
+				<!-- Optional "Learn more" link — delete this paragraph if the card has no destination. margin-top:auto keeps it pinned to the bottom of the card. -->
+				<!-- wp:paragraph {"style":{"typography":{"fontWeight":"600"},"spacing":{"margin":{"top":"auto"}}},"textColor":"primary"} -->
+				<p class="has-primary-color has-text-color" style="margin-top:auto;font-weight:600"><a href="#">Learn more →</a></p>
 				<!-- /wp:paragraph -->
 			</div>
 			<!-- /wp:group -->

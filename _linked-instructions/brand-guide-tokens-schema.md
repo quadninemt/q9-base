@@ -55,7 +55,21 @@ All keys are optional. Omit any key to keep the theme default.
     "neutral-light": "hex — light neutral (backgrounds, borders)",
     "neutral-dark":  "hex — dark neutral (body text secondary, captions)",
     "background":    "hex — page background",
-    "text":          "hex — primary body text"
+    "text":          "hex — primary body text",
+
+    "_comment_extended": "OPTIONAL extended colour scale (added 2026-06-04, gap T8). All keys below are optional — supply only the ones a client design uses; omitted keys keep the theme default. functions.php emits a --wp--preset--color--{slug} variable for every key present, and the Site Editor palette exposes them.",
+    "primary-50":  "hex", "primary-100": "hex", "primary-200": "hex", "primary-300": "hex", "primary-400": "hex",
+    "primary-500": "hex", "primary-600": "hex", "primary-700": "hex", "primary-800": "hex", "primary-900": "hex",
+    "accent-dark": "hex — darker accent (hover/active on accent)",
+    "accent-50":   "hex — very light accent tint (chips, callout backgrounds)",
+    "accent-200":  "hex — light accent",
+    "snow":   "hex — near-white neutral",
+    "cloud":  "hex — light grey neutral (alternating section backgrounds)",
+    "silver": "hex — mid-light neutral (borders, dividers)",
+    "pewter": "hex — mid neutral (muted text)",
+    "slate":  "hex — dark neutral",
+    "ink":    "hex — very dark neutral (footers, dark sections)",
+    "success": "hex — success / positive state"
   },
 
   "typography": {
@@ -93,7 +107,8 @@ All keys are optional. Omit any key to keep the theme default.
 | Field | Rule |
 |---|---|
 | `client` | Alphanumeric + hyphens, lowercase |
-| Color values | Must be valid hex (`#rrggbb` or `#rgb`) |
+| Color keys | Slug must match `^[a-z0-9-]+$` (the 7 semantic colours plus any optional extended-scale slug). **Plugin TODO (gap T8):** `apply-client-tokens` must accept the extended-scale keys in addition to the 7 semantic colours. |
+| Color values | Must be valid hex (`#rrggbb` or `#rgb`) — applies to every colour key, semantic or extended |
 | Font families | Free-form string — no validation required |
 | `google-fonts-url` | Must begin with `https://fonts.googleapis.com/` if present |
 | Spacing values | Must include a CSS unit (`rem`, `px`, `em`, `%`) |
